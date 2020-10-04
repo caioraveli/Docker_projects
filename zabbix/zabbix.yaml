@@ -10,7 +10,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: "P@ssw0rd"
+      POSTGRES_PASSWORD: "SOME_WEIRD_PASSWORD"
     volumes:
       - ./pg01_data:/var/lib/postgresql/data
   
@@ -25,7 +25,7 @@ services:
       DB_SERVER_HOST: "10.85.0.40"
       POSTGRES_DB: "zabbix_server"
       POSTGRES_USER: "zabbix_server"
-      POSTGRES_PASSWORD: "P@ssw0rd"
+      POSTGRES_PASSWORD: "SOME_WEIRD_PASSWORD"
       ZBX_TIMEOUT: 30
 
   web:
@@ -39,7 +39,7 @@ services:
       DB_SERVER_HOST: "10.85.0.40"
       POSTGRES_DB: "zabbix_server"
       POSTGRES_USER: "zabbix_server"
-      POSTGRES_PASSWORD: "P@ssw0rd"
+      POSTGRES_PASSWORD: "SOME_WEIRD_PASSWORD"
       ZBX_SERVER_HOST: "10.85.0.30"
       PHP_TZ: "America/Fortaleza"
       ZBX_TIMEOUT: 30

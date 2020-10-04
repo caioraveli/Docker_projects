@@ -1,0 +1,50 @@
+version: "3"
+services:
+  DB:
+    image: postgres
+    hostname: pg01
+    container_name: pg01
+    networks:
+      default:
+        ipv4_address: 10.85.0.40
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "P@ssw0rd"
+    volumes:
+      - ./pg01_data:/var/lib/postgresql/data
+  
+  zabbix:
+    image: zabbix/zabbix-server-pgsql
+    hostname: zbxserver
+    container_name: zbxserver
+    networks:
+      default:
+        ipv4_address: 10.85.0.30
+    environment:
+      DB_SERVER_HOST: "10.85.0.40"
+      POSTGRES_DB: "zabbix_server"
+      POSTGRES_USER: "zabbix_server"
+      POSTGRES_PASSWORD: "P@ssw0rd"
+      ZBX_TIMEOUT: 30
+
+  web:
+    image: zabbix/zabbix-web-nginx-pgsql
+    hostname: zbxweb01
+    container_name: zbxweb01
+    networks:
+      default:
+        ipv4_address: 10.85.0.35
+    environment:
+      DB_SERVER_HOST: "10.85.0.40"
+      POSTGRES_DB: "zabbix_server"
+      POSTGRES_USER: "zabbix_server"
+      POSTGRES_PASSWORD: "P@ssw0rd"
+      ZBX_SERVER_HOST: "10.85.0.30"
+      PHP_TZ: "America/Fortaleza"
+      ZBX_TIMEOUT: 30
+
+networks:
+  default:
+    external:  
+      name: net_85
